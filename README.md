@@ -18,3 +18,13 @@ cluster plus GitHub Actions, no cloud account required.
 | Task 4 — Recon & Penetration Testing | ⬜ Pending | task4/README.md |
 
 ## Repo structure
+```
+deploy/          # Kubernetes manifests for Task 1 (hardened ledger-api)
+task1/           # Task 1 write-up, evidence, screenshots
+app/             # ledger-api source (from starter template)
+.github/         # CI/CD workflows (Task 2)
+```
+
+## Environment
+- Local `kind` Kubernetes cluster (`dodo-assignment`), Kubernetes v1.30.0
+- No cloud account used — all tooling free/local
