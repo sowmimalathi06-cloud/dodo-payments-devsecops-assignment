@@ -99,7 +99,56 @@ this satisfies Task 1's `disallow-latest-tag` Kyverno policy and ensures every d
 image is traceable to an exact commit.
 
 ## GitOps (ArgoCD)
-*(see `task2/gitops/` for ArgoCD Application manifest and drift-detection evidence)*
+
+ArgoCD is installed in-cluster (`argocd` namespace) with an `Application` resource
+(`deploy/gitops/application.yaml`) pointing at this repo's `deploy/` folder, targeting the
+`payments` namespace. `syncPolicy.automated` has both `prune: true` and `selfHeal: true` —
+Kyverno's `disallow-root-containers`/`disallow-latest-tag` policies were scoped to the
+`payments` namespace only (see note below) so they don't block ArgoCD's own platform pods.
+
+**Initial sync — proof GitOps works:**
+```
+NAME         SYNC STATUS   HEALTH STATUS
+ledger-api   Synced        Healthy
+```
+ArgoCD dashboard confirms: repo URL, target revision `main`, path `deploy`, destination
+namespace `payments` — all matching this repo exactly.
+
+**Drift detection + self-heal — proof (bonus requirement):**
+
+A manual `kubectl scale deployment ledger-api -n payments --replicas=1` was run to simulate
+an out-of-band change (e.g. an engineer bypassing GitOps). ArgoCD detected the drift and
+self-healed within seconds:
+
+```
+$ kubectl scale deployment ledger-api -n payments --replicas=1
+deployment.apps/ledger-api scaled
+
+# ~15s later, without any manual intervention:
+$ kubectl get pods -n payments -l app=ledger-api
+NAME                          READY   STATUS    RESTARTS   AGE
+ledger-api-76db444575-db6x6   1/1     Running   0          44s   ← new pod, self-healed
+ledger-api-76db444575-dg4zc   1/1     Running   0          5h13m ← original, untouched
+ledger-api-76db444575-qrnp8   1/1     Running   0          44s   ← new pod, self-healed
+```
+
+ArgoCD's own event log confirms the automated reconciliation:
+```
+Updated sync status: Synced -> OutOfSync
+Updated health status: Healthy -> Progressing
+OperationCompleted  Partial sync operation to 6fbe2024... succeeded
+Updated sync status: OutOfSync -> Synced
+Updated health status: Progressing -> Healthy
+```
+Full drift-to-healed cycle completed in ~7 seconds, with zero manual `kubectl apply` needed
+to restore the desired state — git remains the single source of truth.
+
+**Note on Kyverno namespace scoping:** the first ArgoCD install attempt was blocked by Task 1's
+cluster-wide `disallow-root-containers` policy, since ArgoCD's own controller pods don't set
+`runAsNonRoot`. This correctly highlighted that admission policies meant for a PCI-scoped
+*application* namespace shouldn't apply to *platform* tooling — the policies were updated to
+scope `match.resources.namespaces: [payments]` instead of cluster-wide, and reapplied. See
+`deploy/kyverno/policies.yaml` for the corrected version.
 
 ## What I'd do with more time
 - Fix the PyYAML/yaml.safe_load and SSRF findings above, then re-run the pipeline to show
