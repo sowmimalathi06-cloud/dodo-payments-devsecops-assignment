@@ -1,0 +1,245 @@
+name: secure-pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write        # required for Cosign keyless signing (OIDC)
+  security-events: write  # required to upload SARIF to Security tab
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/ledger-api
+
+jobs:
+  # ─────────────────────────────────────────────────────────
+  # GATE 1: Secrets scan — HARD BLOCK
+  # Rationale: a leaked secret is an immediate, active compromise.
+  # No reason to ever allow this through, so this gate has zero tolerance.
+  # ─────────────────────────────────────────────────────────
+  secrets-scan:
+    name: "Gate 1: Secrets Scan (gitleaks)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Fail policy: HARD BLOCK. gitleaks-action fails the job by default
+        # on any finding — intentionally left as default (no continue-on-error).
+
+  # ─────────────────────────────────────────────────────────
+  # GATE 2: SAST — HARD BLOCK on high/critical, WARN on medium/low
+  # Rationale: known-bad code patterns (e.g. unsafe yaml.load, SSRF-prone
+  # requests) should stop the pipeline if severe; lower-severity findings
+  # are surfaced for visibility without blocking delivery.
+  # ─────────────────────────────────────────────────────────
+  sast:
+    name: "Gate 2: SAST (Semgrep)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Semgrep
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/python
+            p/owasp-top-ten
+        env:
+          SEMGREP_RULES: p/security-audit p/python p/owasp-top-ten
+        continue-on-error: true   # capture results even if findings exist
+      - name: Run Semgrep (SARIF output for Security tab)
+        run: |
+          pip install semgrep
+          semgrep scan --config=p/security-audit --config=p/python \
+            --config=p/owasp-top-ten --sarif --output=semgrep.sarif ./app || true
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+        continue-on-error: true
+      - name: Enforce hard-block on high/critical findings
+        run: |
+          pip install semgrep
+          semgrep scan --config=p/security-audit --config=p/python \
+            --config=p/owasp-top-ten --severity=ERROR --error ./app
+        # Fail policy: HARD BLOCK if any ERROR-severity (high/critical) finding.
+        # WARNING/INFO severity findings do not fail this step (visible via SARIF only).
+
+  # ─────────────────────────────────────────────────────────
+  # GATE 3: Dependency / CVE scan — HARD BLOCK on CRITICAL, WARN on HIGH/MEDIUM
+  # Rationale: this repo's requirements.txt pins genuinely ancient, CVE-laden
+  # packages (Flask 0.12.2, PyYAML 5.1). A CRITICAL, fixable CVE should block;
+  # a HIGH/MEDIUM CVE is logged and tracked but doesn't stop an urgent hotfix.
+  # ─────────────────────────────────────────────────────────
+  dependency-scan:
+    name: "Gate 3: Dependency Scan (Trivy)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Trivy filesystem scan (SARIF for Security tab)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: ./app
+          format: sarif
+          output: trivy-fs.sarif
+          severity: "CRITICAL,HIGH,MEDIUM"
+        continue-on-error: true
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-fs.sarif
+        continue-on-error: true
+      - name: Enforce hard-block on CRITICAL with available fix
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: ./app
+          format: table
+          severity: CRITICAL
+          ignore-unfixed: true   # don't block on CVEs with no available fix yet
+          exit-code: "1"
+        # Fail policy: HARD BLOCK on CRITICAL CVEs that HAVE a fix available.
+        # CRITICAL CVEs with no fix yet are logged (ignore-unfixed) and tracked
+        # manually rather than blocking delivery indefinitely.
+
+  # ─────────────────────────────────────────────────────────
+  # BUILD: only runs if all 3 gates above pass
+  # ─────────────────────────────────────────────────────────
+  build:
+    name: Build Image
+    needs: [secrets-scan, sast, dependency-scan]
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.vars.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute pinned tag (git SHA, never :latest)
+        id: vars
+        run: echo "tag=sha-${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+      - name: Build image
+        run: |
+          docker build -t "${IMAGE_NAME}:${{ steps.vars.outputs.tag }}" ./app
+          docker save "${IMAGE_NAME}:${{ steps.vars.outputs.tag }}" -o image.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: image-tar
+          path: image.tar
+          retention-days: 1
+
+  # ─────────────────────────────────────────────────────────
+  # GATE 4: Image scan — HARD BLOCK on CRITICAL (fixable), same policy as Gate 3
+  # but scanning the actual built image (OS packages + app layer combined)
+  # ─────────────────────────────────────────────────────────
+  image-scan:
+    name: "Gate 4: Container Image Scan (Trivy)"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: image-tar
+      - name: Load image
+        run: docker load -i image.tar
+      - name: Trivy image scan (SARIF)
+        uses: aquasecurity/trivy-action@master
+        with:
+          input: image.tar
+          format: sarif
+          output: trivy-image.sarif
+          severity: "CRITICAL,HIGH,MEDIUM"
+        continue-on-error: true
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-image.sarif
+        continue-on-error: true
+      - name: Enforce hard-block on CRITICAL with available fix
+        uses: aquasecurity/trivy-action@master
+        with:
+          input: image.tar
+          format: table
+          severity: CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+  # ─────────────────────────────────────────────────────────
+  # PUSH + SIGN + ATTEST: only after every gate above passes
+  # ─────────────────────────────────────────────────────────
+  push-sign-attest:
+    name: Push, Sign & Attest
+    needs: [build, image-scan]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: image-tar
+      - name: Load image
+        run: docker load -i image.tar
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image (pinned tag only, never :latest)
+        id: push
+        run: |
+          TAG="${{ needs.build.outputs.image_tag }}"
+          docker push "${IMAGE_NAME}:${TAG}"
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' "${IMAGE_NAME}:${TAG}" 2>/dev/null || \
+                   docker inspect --format='{{.Id}}' "${IMAGE_NAME}:${TAG}")
+          echo "digest=${DIGEST}" >> "$GITHUB_OUTPUT"
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign image (keyless, via GitHub OIDC)
+        run: |
+          cosign sign --yes "${IMAGE_NAME}:${{ needs.build.outputs.image_tag }}"
+
+      - name: Generate SLSA-style provenance attestation
+        run: |
+          cat > provenance.json << ATTESTATION
+          {
+            "buildType": "https://github.com/actions/runs",
+            "builder": { "id": "https://github.com/${{ github.repository }}/.github/workflows/secure-pipeline.yml" },
+            "invocation": {
+              "configSource": {
+                "uri": "git+https://github.com/${{ github.repository }}@${{ github.ref }}",
+                "digest": { "sha1": "${{ github.sha }}" }
+              }
+            },
+            "metadata": {
+              "buildInvocationId": "${{ github.run_id }}",
+              "completeness": { "parameters": true, "environment": false, "materials": false }
+            }
+          }
+          ATTESTATION
+          cosign attest --yes --predicate provenance.json \
+            --type slsaprovenance \
+            "${IMAGE_NAME}:${{ needs.build.outputs.image_tag }}"
+
+      - name: Verify signature (sanity check)
+        run: |
+          cosign verify \
+            --certificate-identity-regexp "https://github.com/${{ github.repository }}/.*" \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+            "${IMAGE_NAME}:${{ needs.build.outputs.image_tag }}"
