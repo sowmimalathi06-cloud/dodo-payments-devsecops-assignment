@@ -1,0 +1,500 @@
+
+Testing all IP addresses (port 443): 104.18.10.178 104.18.11.178
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Start 2026-07-28 12:00:38        -->> 104.18.10.178:443 (dodopayments.tech) <<--
+
+ Further IP addresses:   104.18.11.178 (2606:4700::6812:ab2) (2606:4700::6812:bb2) 
+ rDNS (104.18.10.178):   --
+ DNS HTTPS RR (expt.):   yes: 1 . alpn="h2" ipv4hint=104.18.10.178,104.18.11.178 ipv6hint=2606:4700::6812:ab2,2606:4700::6812:bb2
+ Service detected:       HTTP
+
+ Testing protocols via sockets except NPN+ALPN 
+
+ SSLv2      not offered (OK)
+ SSLv3      not offered (OK)
+ TLS 1      offered (deprecated)
+ TLS 1.1    offered (deprecated)
+ TLS 1.2    offered (OK)
+ TLS 1.3    offered (OK): final
+ QUIC       Local problem: No OpenSSL QUIC support
+ NPN/SPDY   h2, http/1.1 (advertised)
+ ALPN/HTTP2 h2, http/1.1 (offered)
+
+ Testing cipher categories 
+
+ NULL ciphers (no encryption)                      not offered (OK)
+ Anonymous NULL Ciphers (no authentication)        not offered (OK)
+ Export ciphers (w/o ADH+NULL)                     not offered (OK)
+ LOW: 64 Bit + DES, RC[2,4], MD5 (w/o export)      not offered (OK)
+ Triple DES Ciphers / IDEA                         offered
+ Obsoleted CBC ciphers (AES, ARIA etc.)            offered
+ Strong encryption (AEAD ciphers) with no FS       offered (OK)
+ Forward Secrecy strong encryption (AEAD ciphers)  offered (OK)
+
+
+ Testing server's cipher preferences 
+
+Hexcode  Cipher Suite Name (OpenSSL)       KeyExch.   Encryption  Bits     Cipher Suite Name (IANA/RFC)
+-----------------------------------------------------------------------------------------------------------------------------
+SSLv2
+ - 
+SSLv3
+ - 
+TLSv1 (server order)
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 256   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 256   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+ x0a     DES-CBC3-SHA                      RSA        3DES        168      TLS_RSA_WITH_3DES_EDE_CBC_SHA                      
+TLSv1.1 (server order)
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 256   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 256   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+TLSv1.2 (server order -- server prioritizes ChaCha ciphers when preferred by clients)
+ xc02b   ECDHE-ECDSA-AES128-GCM-SHA256     ECDH 253   AESGCM      128      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256            
+ xcca9   ECDHE-ECDSA-CHACHA20-POLY1305     ECDH 253   ChaCha20    256      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256      
+ xc009   ECDHE-ECDSA-AES128-SHA            ECDH 253   AES         128      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA               
+ xc02c   ECDHE-ECDSA-AES256-GCM-SHA384     ECDH 253   AESGCM      256      TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384            
+ xc00a   ECDHE-ECDSA-AES256-SHA            ECDH 253   AES         256      TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA               
+ xc023   ECDHE-ECDSA-AES128-SHA256         ECDH 253   AES         128      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256            
+ xc024   ECDHE-ECDSA-AES256-SHA384         ECDH 253   AES         256      TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384            
+ xc02f   ECDHE-RSA-AES128-GCM-SHA256       ECDH 253   AESGCM      128      TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256              
+ xcca8   ECDHE-RSA-CHACHA20-POLY1305       ECDH 253   ChaCha20    256      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256        
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 253   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x9c     AES128-GCM-SHA256                 RSA        AESGCM      128      TLS_RSA_WITH_AES_128_GCM_SHA256                    
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc030   ECDHE-RSA-AES256-GCM-SHA384       ECDH 253   AESGCM      256      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384              
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 253   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x9d     AES256-GCM-SHA384                 RSA        AESGCM      256      TLS_RSA_WITH_AES_256_GCM_SHA384                    
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+ xc027   ECDHE-RSA-AES128-SHA256           ECDH 253   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256              
+ x3c     AES128-SHA256                     RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA256                    
+ xc028   ECDHE-RSA-AES256-SHA384           ECDH 253   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384              
+ x3d     AES256-SHA256                     RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA256                    
+TLSv1.3 (no server order, thus listed by strength)
+ x1302   TLS_AES_256_GCM_SHA384            ECDH/MLKEM AESGCM      256      TLS_AES_256_GCM_SHA384                             
+ x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH/MLKEM ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256                       
+ x1301   TLS_AES_128_GCM_SHA256            ECDH/MLKEM AESGCM      128      TLS_AES_128_GCM_SHA256                             
+
+ Has server cipher order?     yes (OK) -- only for < TLS 1.3
+
+
+ Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4 
+
+ FS is offered (OK)           TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA384 ECDHE-ECDSA-AES256-SHA384 ECDHE-RSA-AES256-SHA
+                              ECDHE-ECDSA-AES256-SHA ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-CHACHA20-POLY1305 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES128-GCM-SHA256
+                              ECDHE-RSA-AES128-SHA256 ECDHE-ECDSA-AES128-SHA256 ECDHE-RSA-AES128-SHA ECDHE-ECDSA-AES128-SHA 
+ KEMs offered                 X25519MLKEM768 
+ Elliptic curves offered:     prime256v1 secp384r1 secp521r1 X25519 
+ TLS 1.2 sig_algs offered:    RSA-PSS-RSAE+SHA256 RSA+SHA256 RSA-PSS-RSAE+SHA384 ECDSA+SHA256 ECDSA+SHA384 ECDSA+SHA512 
+ TLS 1.3 sig_algs offered:    ECDSA+SHA256 
+
+ Testing server defaults (Server Hello) 
+
+ TLS extensions               "server name/#0" "EC point formats/#11" "application layer protocol negotiation/#16" "extended master secret/#23" "compress_certificate/#27" "session ticket/#35" "supported versions/#43" "key share/#51" "next protocol/#13172" "renegotiation info/#65281"
+ Session Ticket RFC 5077 hint 64800 seconds, session tickets keys seems to be rotated < daily
+ SSL Session ID support       yes
+ Session Resumption           tickets: yes, ID: no
+ TLS 1.3 early data support   no early data offered
+ TLS clock skew               -1 sec from localtime
+ Certificate Compression      0002/Brotli
+ Client Authentication        none
+
+  Server Certificate #1
+   Signature Algorithm          SHA256 with RSA
+   Server key size              RSA 2048 bits (exponent is 65537)
+   Server key usage             Digital Signature, Key Encipherment
+   Server extended key usage    TLS Web Server Authentication
+   Serial                       B6D387E93BBF5EAE137DBAEC8752BBC5 (OK: length 16)
+   Fingerprints                 SHA1 34B9F6226CD39F2586D31DDB64133817E8695DE9
+                                SHA256 0A833803F8171E1C2C26DC32627084B7EC0E05A71A8FC6E2AAE40734C35D268B
+   Common Name (CN)             dodopayments.tech  (request w/o SNI didn't succeed)
+   subjectAltName (SAN)         dodopayments.tech squirrels.dodopayments.tech *.squirrels.dodopayments.tech 
+   Trust (hostname)             Ok via SAN and CN (SNI mandatory)
+   Chain of trust               Ok   
+   EV cert (experimental)       no 
+   Certificate Validity (UTC)   75 >= 60 days (2026-07-13 22:17 --> 2026-10-11 23:14)
+   ETS/"eTLS", visibility info  not present
+   Certificate Revocation List  http://c.pki.goog/wr1/bg-a-G1ME_s.crl
+   OCSP URI                     --
+   OCSP stapling                not offered
+   OCSP must staple extension   --
+   DNS CAA RR (experimental)    not checked: IP address scan, no domain to query
+   Certificate Transparency     yes (certificate extension)
+   Certificates provided        3
+   Issuer                       WR1 (Google Trust Services from US)
+   Intermediate cert validity   #1: ok > 40 days (2029-02-20 14:00). WR1 <-- GTS Root R1
+                                #2: ok > 40 days (2028-01-28 00:00). GTS Root R1 <-- GlobalSign Root CA
+   Intermediate Bad OCSP (exp.) Ok
+
+  Server Certificate #2
+   Signature Algorithm          ECDSA with SHA256
+   Server key size              EC 256 bits (curve P-256)
+   Server key usage             Digital Signature
+   Server extended key usage    TLS Web Server Authentication
+   Serial                       ACEE49895E2695FB1334459D37CBFBC9 (OK: length 16)
+   Fingerprints                 SHA1 3143584F43C191D9819D0FEBCC83E200094CF78E
+                                SHA256 83779AE294649645F269FCCC45BD78CE72925F0E4B998619CBEB9FEAC7AFC79E
+   Common Name (CN)             dodopayments.tech  (request w/o SNI didn't succeed, usual for EC certificates)
+   subjectAltName (SAN)         dodopayments.tech squirrels.dodopayments.tech *.squirrels.dodopayments.tech 
+   Trust (hostname)             Ok via SAN and CN (SNI mandatory)
+   Chain of trust               Ok   
+   EV cert (experimental)       no 
+   Certificate Validity (UTC)   75 >= 60 days (2026-07-13 22:17 --> 2026-10-11 23:17)
+   ETS/"eTLS", visibility info  not present
+   Certificate Revocation List  http://c.pki.goog/we1/ER6WRo4TM5k.crl
+   OCSP URI                     --
+   OCSP stapling                not offered
+   OCSP must staple extension   --
+   DNS CAA RR (experimental)    not checked: IP address scan, no domain to query
+   Certificate Transparency     yes (certificate extension)
+   Certificates provided        3
+   Issuer                       WE1 (Google Trust Services from US)
+   Intermediate cert validity   #1: ok > 40 days (2029-02-20 14:00). WE1 <-- GTS Root R4
+                                #2: ok > 40 days (2028-01-28 00:00). GTS Root R4 <-- GlobalSign Root CA
+   Intermediate Bad OCSP (exp.) Ok
+
+
+ Testing HTTP header response @ "/" 
+
+ HTTP Status Code             301 Moved Permanently, redirecting to "https://dodopayments.com/"
+ HTTP clock skew              0 sec from localtime
+ Strict Transport Security    not offered
+ Public Key Pinning           --
+ Server banner                cloudflare
+ Application banner           --
+ Cookie(s)                    (none issued at "/") -- maybe better try target URL of 30x
+ Security headers             --
+ Reverse Proxy banner         --
+
+
+ Testing vulnerabilities 
+
+ Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
+ CCS (CVE-2014-0224)                       not vulnerable (OK)
+ Ticketbleed (CVE-2016-9244), experimental not vulnerable (OK)
+ Opossum (CVE-2025-49812)                  not vulnerable (OK)
+ ROBOT                                     not vulnerable (OK)
+ Secure Renegotiation (RFC 5746)           supported (OK)
+ Secure Client-Initiated Renegotiation     not vulnerable (OK)
+ CRIME, TLS (CVE-2012-4929)                not vulnerable (OK)
+ BREACH (CVE-2013-3587)                    no gzip/deflate/compress/br HTTP compression (OK)  - only supplied "/" tested
+ POODLE, SSL (CVE-2014-3566)               not vulnerable (OK), no SSLv3 support
+ TLS_FALLBACK_SCSV (RFC 7507)              Downgrade attack prevention supported (OK)
+ SWEET32 (CVE-2016-2183, CVE-2016-6329)    VULNERABLE, uses 64 bit block ciphers
+ FREAK (CVE-2015-0204)                     not vulnerable (OK)
+ DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
+                                           make sure you don't use this certificate elsewhere with SSLv2 enabled services, see
+                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=0A833803F8171E1C2C26DC32627084B7EC0E05A71A8FC6E2AAE40734C35D268B
+ LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with <= TLS 1.2
+ BEAST (CVE-2011-3389)                     TLS1: ECDHE-RSA-AES128-SHA AES128-SHA ECDHE-RSA-AES256-SHA AES256-SHA DES-CBC3-SHA 
+                                           VULNERABLE -- but also supports higher protocols  TLSv1.1 TLSv1.2 (likely mitigated)
+ LUCKY13 (CVE-2013-0169), experimental     potentially VULNERABLE, uses cipher block chaining (CBC) ciphers with TLS. Check patches
+ Winshock (CVE-2014-6321), experimental    not vulnerable (OK)
+ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
+
+
+ Running client simulations (HTTP) via sockets 
+
+ Browser/Client                      Protocol  Cipher Suite Name (OpenSSL)       Forward Secrecy
+--------------------------------------------------------------------------------------------------------
+ Android 7.0 (native)                TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Android 8.1 (native)                TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     253 bit ECDH (X25519)
+ Android 9.0 (native)                TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 10.0 (native)               TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 11/12 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 13/14 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 15/16 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Chromium 137 (Win 11)               TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Firefox 100 (Win 10)                TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Firefox 137 (Win 11)                TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ IE 8 Win 7                          TLSv1.0   ECDHE-RSA-AES128-SHA              256 bit ECDH (P-256)
+ IE 11 Win 7                         TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win 8.1                       TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win Phone 8.1                 TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win 10                        TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Edge 15 Win 10                      TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     253 bit ECDH (X25519)
+ Edge 101/Chrome 101 Win 10 21H2     TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Edge 133 Win 11 23H2                TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Safari 18.4 (macOS 15.4/iOS 18.4)   TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Safari 26.4 (macOS/iOS/iPadOS 26.4) TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ Java 7u25                           TLSv1.0   ECDHE-RSA-AES128-SHA              256 bit ECDH (P-256)
+ Java 8u442 (OpenJDK)                TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Java 11.0.2 (OpenJDK)               TLSv1.3   TLS_AES_128_GCM_SHA256            256 bit ECDH (P-256)
+ Java 17.0.3/21.0.6 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ go 1.17.8                           TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ LibreSSL 3.3.6 (macOS)              TLSv1.3   TLS_CHACHA20_POLY1305_SHA256      253 bit ECDH (X25519)
+ OpenSSL 1.0.2e                      TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ OpenSSL 1.1.1d (Debian)             TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.0.15 (Debian)             TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.5.0 (git)                 TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ OpenSSL 4.0.0 (git)                 TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ Apple Mail (16.0)                   TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Thunderbird (91.9)                  TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+
+
+ Rating (experimental) 
+
+ Rating specs (not complete)  SSL Labs's 'SSL Server Rating Guide' (version 2009r from 2025-05-16)
+ Specification documentation  https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide
+ Protocol Support (weighted)  95 (28)
+ Key Exchange     (weighted)  90 (27)
+ Cipher Strength  (weighted)  90 (36)
+ Final Score                  91
+ Overall Grade                B
+ Grade cap reasons            Grade capped to B. TLS 1.1 offered
+                              Grade capped to B. TLS 1.0 offered
+
+ Done 2026-07-28 12:02:43 [ 129s] -->> 104.18.10.178:443 (dodopayments.tech) <<--
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Start 2026-07-28 12:02:43        -->> 104.18.11.178:443 (dodopayments.tech) <<--
+
+ Further IP addresses:   104.18.10.178 (2606:4700::6812:ab2) (2606:4700::6812:bb2) 
+ rDNS (104.18.11.178):   --
+ Service detected:       HTTP
+
+ Testing protocols via sockets except NPN+ALPN 
+
+ SSLv2      not offered (OK)
+ SSLv3      not offered (OK)
+ TLS 1      offered (deprecated)
+ TLS 1.1    offered (deprecated)
+ TLS 1.2    offered (OK)
+ TLS 1.3    offered (OK): final
+ QUIC       Local problem: No OpenSSL QUIC support
+ NPN/SPDY   h2, http/1.1 (advertised)
+ ALPN/HTTP2 h2, http/1.1 (offered)
+
+ Testing cipher categories 
+
+ NULL ciphers (no encryption)                      not offered (OK)
+ Anonymous NULL Ciphers (no authentication)        not offered (OK)
+ Export ciphers (w/o ADH+NULL)                     not offered (OK)
+ LOW: 64 Bit + DES, RC[2,4], MD5 (w/o export)      not offered (OK)
+ Triple DES Ciphers / IDEA                         offered
+ Obsoleted CBC ciphers (AES, ARIA etc.)            offered
+ Strong encryption (AEAD ciphers) with no FS       offered (OK)
+ Forward Secrecy strong encryption (AEAD ciphers)  offered (OK)
+
+
+ Testing server's cipher preferences 
+
+Hexcode  Cipher Suite Name (OpenSSL)       KeyExch.   Encryption  Bits     Cipher Suite Name (IANA/RFC)
+-----------------------------------------------------------------------------------------------------------------------------
+SSLv2
+ - 
+SSLv3
+ - 
+TLSv1 (server order)
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 256   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 256   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+ x0a     DES-CBC3-SHA                      RSA        3DES        168      TLS_RSA_WITH_3DES_EDE_CBC_SHA                      
+TLSv1.1 (server order)
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 256   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 256   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+TLSv1.2 (server order -- server prioritizes ChaCha ciphers when preferred by clients)
+ xc02b   ECDHE-ECDSA-AES128-GCM-SHA256     ECDH 253   AESGCM      128      TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256            
+ xcca9   ECDHE-ECDSA-CHACHA20-POLY1305     ECDH 253   ChaCha20    256      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256      
+ xc009   ECDHE-ECDSA-AES128-SHA            ECDH 253   AES         128      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA               
+ xc02c   ECDHE-ECDSA-AES256-GCM-SHA384     ECDH 253   AESGCM      256      TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384            
+ xc00a   ECDHE-ECDSA-AES256-SHA            ECDH 253   AES         256      TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA               
+ xc023   ECDHE-ECDSA-AES128-SHA256         ECDH 253   AES         128      TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256            
+ xc024   ECDHE-ECDSA-AES256-SHA384         ECDH 253   AES         256      TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384            
+ xc02f   ECDHE-RSA-AES128-GCM-SHA256       ECDH 253   AESGCM      128      TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256              
+ xcca8   ECDHE-RSA-CHACHA20-POLY1305       ECDH 253   ChaCha20    256      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256        
+ xc013   ECDHE-RSA-AES128-SHA              ECDH 253   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                 
+ x9c     AES128-GCM-SHA256                 RSA        AESGCM      128      TLS_RSA_WITH_AES_128_GCM_SHA256                    
+ x2f     AES128-SHA                        RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA                       
+ xc030   ECDHE-RSA-AES256-GCM-SHA384       ECDH 253   AESGCM      256      TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384              
+ xc014   ECDHE-RSA-AES256-SHA              ECDH 253   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                 
+ x9d     AES256-GCM-SHA384                 RSA        AESGCM      256      TLS_RSA_WITH_AES_256_GCM_SHA384                    
+ x35     AES256-SHA                        RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA                       
+ xc027   ECDHE-RSA-AES128-SHA256           ECDH 253   AES         128      TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256              
+ x3c     AES128-SHA256                     RSA        AES         128      TLS_RSA_WITH_AES_128_CBC_SHA256                    
+ xc028   ECDHE-RSA-AES256-SHA384           ECDH 253   AES         256      TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384              
+ x3d     AES256-SHA256                     RSA        AES         256      TLS_RSA_WITH_AES_256_CBC_SHA256                    
+TLSv1.3 (no server order, thus listed by strength)
+ x1302   TLS_AES_256_GCM_SHA384            ECDH/MLKEM AESGCM      256      TLS_AES_256_GCM_SHA384                             
+ x1303   TLS_CHACHA20_POLY1305_SHA256      ECDH/MLKEM ChaCha20    256      TLS_CHACHA20_POLY1305_SHA256                       
+ x1301   TLS_AES_128_GCM_SHA256            ECDH/MLKEM AESGCM      128      TLS_AES_128_GCM_SHA256                             
+
+ Has server cipher order?     yes (OK) -- only for < TLS 1.3
+
+
+ Testing robust forward secrecy (FS) -- omitting Null Authentication/Encryption, 3DES, RC4 
+
+ FS is offered (OK)           TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA384 ECDHE-ECDSA-AES256-SHA384 ECDHE-RSA-AES256-SHA
+                              ECDHE-ECDSA-AES256-SHA ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-RSA-CHACHA20-POLY1305 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES128-GCM-SHA256
+                              ECDHE-RSA-AES128-SHA256 ECDHE-ECDSA-AES128-SHA256 ECDHE-RSA-AES128-SHA ECDHE-ECDSA-AES128-SHA 
+ KEMs offered                 X25519MLKEM768 
+ Elliptic curves offered:     prime256v1 secp384r1 secp521r1 X25519 
+ TLS 1.2 sig_algs offered:    RSA-PSS-RSAE+SHA256 RSA+SHA256 RSA-PSS-RSAE+SHA384 ECDSA+SHA256 ECDSA+SHA384 ECDSA+SHA512 
+ TLS 1.3 sig_algs offered:    ECDSA+SHA256 
+
+ Testing server defaults (Server Hello) 
+
+ TLS extensions               "server name/#0" "EC point formats/#11" "application layer protocol negotiation/#16" "extended master secret/#23" "compress_certificate/#27" "session ticket/#35" "supported versions/#43" "key share/#51" "next protocol/#13172" "renegotiation info/#65281"
+ Session Ticket RFC 5077 hint 64800 seconds, session tickets keys seems to be rotated < daily
+ SSL Session ID support       yes
+ Session Resumption           tickets: yes, ID: no
+ TLS 1.3 early data support   no early data offered
+ TLS clock skew               0 sec from localtime
+ Certificate Compression      0002/Brotli
+ Client Authentication        none
+
+  Server Certificate #1
+   Signature Algorithm          SHA256 with RSA
+   Server key size              RSA 2048 bits (exponent is 65537)
+   Server key usage             Digital Signature, Key Encipherment
+   Server extended key usage    TLS Web Server Authentication
+   Serial                       B6D387E93BBF5EAE137DBAEC8752BBC5 (OK: length 16)
+   Fingerprints                 SHA1 34B9F6226CD39F2586D31DDB64133817E8695DE9
+                                SHA256 0A833803F8171E1C2C26DC32627084B7EC0E05A71A8FC6E2AAE40734C35D268B
+   Common Name (CN)             dodopayments.tech  (request w/o SNI didn't succeed)
+   subjectAltName (SAN)         dodopayments.tech squirrels.dodopayments.tech *.squirrels.dodopayments.tech 
+   Trust (hostname)             Ok via SAN and CN (SNI mandatory)
+   Chain of trust               Ok   
+   EV cert (experimental)       no 
+   Certificate Validity (UTC)   75 >= 60 days (2026-07-13 22:17 --> 2026-10-11 23:14)
+   ETS/"eTLS", visibility info  not present
+   Certificate Revocation List  http://c.pki.goog/wr1/bg-a-G1ME_s.crl
+   OCSP URI                     --
+   OCSP stapling                not offered
+   OCSP must staple extension   --
+   DNS CAA RR (experimental)    not checked: IP address scan, no domain to query
+   Certificate Transparency     yes (certificate extension)
+   Certificates provided        3
+   Issuer                       WR1 (Google Trust Services from US)
+   Intermediate cert validity   #1: ok > 40 days (2029-02-20 14:00). WR1 <-- GTS Root R1
+                                #2: ok > 40 days (2028-01-28 00:00). GTS Root R1 <-- GlobalSign Root CA
+   Intermediate Bad OCSP (exp.) Ok
+
+  Server Certificate #2
+   Signature Algorithm          ECDSA with SHA256
+   Server key size              EC 256 bits (curve P-256)
+   Server key usage             Digital Signature
+   Server extended key usage    TLS Web Server Authentication
+   Serial                       ACEE49895E2695FB1334459D37CBFBC9 (OK: length 16)
+   Fingerprints                 SHA1 3143584F43C191D9819D0FEBCC83E200094CF78E
+                                SHA256 83779AE294649645F269FCCC45BD78CE72925F0E4B998619CBEB9FEAC7AFC79E
+   Common Name (CN)             dodopayments.tech  (request w/o SNI didn't succeed, usual for EC certificates)
+   subjectAltName (SAN)         dodopayments.tech squirrels.dodopayments.tech *.squirrels.dodopayments.tech 
+   Trust (hostname)             Ok via SAN and CN (SNI mandatory)
+   Chain of trust               Ok   
+   EV cert (experimental)       no 
+   Certificate Validity (UTC)   75 >= 60 days (2026-07-13 22:17 --> 2026-10-11 23:17)
+   ETS/"eTLS", visibility info  not present
+   Certificate Revocation List  http://c.pki.goog/we1/ER6WRo4TM5k.crl
+   OCSP URI                     --
+   OCSP stapling                not offered
+   OCSP must staple extension   --
+   DNS CAA RR (experimental)    not checked: IP address scan, no domain to query
+   Certificate Transparency     yes (certificate extension)
+   Certificates provided        3
+   Issuer                       WE1 (Google Trust Services from US)
+   Intermediate cert validity   #1: ok > 40 days (2029-02-20 14:00). WE1 <-- GTS Root R4
+                                #2: ok > 40 days (2028-01-28 00:00). GTS Root R4 <-- GlobalSign Root CA
+   Intermediate Bad OCSP (exp.) Ok
+
+
+ Testing HTTP header response @ "/" 
+
+ HTTP Status Code             301 Moved Permanently, redirecting to "https://dodopayments.com/"
+ HTTP clock skew              0 sec from localtime
+ Strict Transport Security    not offered
+ Public Key Pinning           --
+ Server banner                cloudflare
+ Application banner           --
+ Cookie(s)                    (none issued at "/") -- maybe better try target URL of 30x
+ Security headers             --
+ Reverse Proxy banner         --
+
+
+ Testing vulnerabilities 
+
+ Heartbleed (CVE-2014-0160)                not vulnerable (OK), no heartbeat extension
+ CCS (CVE-2014-0224)                       not vulnerable (OK)
+ Ticketbleed (CVE-2016-9244), experimental not vulnerable (OK)
+ Opossum (CVE-2025-49812)                  not vulnerable (OK)
+ ROBOT                                     not vulnerable (OK)
+ Secure Renegotiation (RFC 5746)           supported (OK)
+ Secure Client-Initiated Renegotiation     not vulnerable (OK)
+ CRIME, TLS (CVE-2012-4929)                not vulnerable (OK)
+ BREACH (CVE-2013-3587)                    no gzip/deflate/compress/br HTTP compression (OK)  - only supplied "/" tested
+ POODLE, SSL (CVE-2014-3566)               not vulnerable (OK), no SSLv3 support
+ TLS_FALLBACK_SCSV (RFC 7507)              Downgrade attack prevention supported (OK)
+ SWEET32 (CVE-2016-2183, CVE-2016-6329)    VULNERABLE, uses 64 bit block ciphers
+ FREAK (CVE-2015-0204)                     not vulnerable (OK)
+ DROWN (CVE-2016-0800, CVE-2016-0703)      not vulnerable on this host and port (OK)
+                                           make sure you don't use this certificate elsewhere with SSLv2 enabled services, see
+                                           https://search.censys.io/search?resource=hosts&virtual_hosts=INCLUDE&q=0A833803F8171E1C2C26DC32627084B7EC0E05A71A8FC6E2AAE40734C35D268B
+ LOGJAM (CVE-2015-4000), experimental      not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with <= TLS 1.2
+ BEAST (CVE-2011-3389)                     TLS1: ECDHE-RSA-AES128-SHA AES128-SHA ECDHE-RSA-AES256-SHA AES256-SHA DES-CBC3-SHA 
+                                           VULNERABLE -- but also supports higher protocols  TLSv1.1 TLSv1.2 (likely mitigated)
+ LUCKY13 (CVE-2013-0169), experimental     potentially VULNERABLE, uses cipher block chaining (CBC) ciphers with TLS. Check patches
+ Winshock (CVE-2014-6321), experimental    not vulnerable (OK)
+ RC4 (CVE-2013-2566, CVE-2015-2808)        no RC4 ciphers detected (OK)
+
+
+ Running client simulations (HTTP) via sockets 
+
+ Browser/Client                      Protocol  Cipher Suite Name (OpenSSL)       Forward Secrecy
+--------------------------------------------------------------------------------------------------------
+ Android 7.0 (native)                TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Android 8.1 (native)                TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     253 bit ECDH (X25519)
+ Android 9.0 (native)                TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 10.0 (native)               TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 11/12 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 13/14 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Android 15/16 (native)              TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Chromium 137 (Win 11)               TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Firefox 100 (Win 10)                TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Firefox 137 (Win 11)                TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ IE 8 Win 7                          TLSv1.0   ECDHE-RSA-AES128-SHA              256 bit ECDH (P-256)
+ IE 11 Win 7                         TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win 8.1                       TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win Phone 8.1                 TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ IE 11 Win 10                        TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Edge 15 Win 10                      TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     253 bit ECDH (X25519)
+ Edge 101/Chrome 101 Win 10 21H2     TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Edge 133 Win 11 23H2                TLSv1.3   TLS_AES_128_GCM_SHA256            X25519MLKEM768
+ Safari 18.4 (macOS 15.4/iOS 18.4)   TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ Safari 26.4 (macOS/iOS/iPadOS 26.4) TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ Java 7u25                           TLSv1.0   ECDHE-RSA-AES128-SHA              256 bit ECDH (P-256)
+ Java 8u442 (OpenJDK)                TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ Java 11.0.2 (OpenJDK)               TLSv1.3   TLS_AES_128_GCM_SHA256            256 bit ECDH (P-256)
+ Java 17.0.3/21.0.6 (OpenJDK)        TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ go 1.17.8                           TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+ LibreSSL 3.3.6 (macOS)              TLSv1.3   TLS_CHACHA20_POLY1305_SHA256      253 bit ECDH (X25519)
+ OpenSSL 1.0.2e                      TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ OpenSSL 1.1.1d (Debian)             TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.0.15 (Debian)             TLSv1.3   TLS_AES_256_GCM_SHA384            253 bit ECDH (X25519)
+ OpenSSL 3.5.0 (git)                 TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ OpenSSL 4.0.0 (git)                 TLSv1.3   TLS_AES_256_GCM_SHA384            X25519MLKEM768
+ Apple Mail (16.0)                   TLSv1.2   ECDHE-ECDSA-AES128-GCM-SHA256     256 bit ECDH (P-256)
+ Thunderbird (91.9)                  TLSv1.3   TLS_AES_128_GCM_SHA256            253 bit ECDH (X25519)
+
+
+ Rating (experimental) 
+
+ Rating specs (not complete)  SSL Labs's 'SSL Server Rating Guide' (version 2009r from 2025-05-16)
+ Specification documentation  https://github.com/ssllabs/research/wiki/SSL-Server-Rating-Guide
+ Protocol Support (weighted)  95 (28)
+ Key Exchange     (weighted)  90 (27)
+ Cipher Strength  (weighted)  90 (36)
+ Final Score                  91
+ Overall Grade                B
+ Grade cap reasons            Grade capped to B. TLS 1.1 offered
+                              Grade capped to B. TLS 1.0 offered
+
+ Done 2026-07-28 12:04:58 [ 264s] -->> 104.18.11.178:443 (dodopayments.tech) <<--
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+Done testing now all IP addresses (on port 443): 104.18.10.178 104.18.11.178
+
