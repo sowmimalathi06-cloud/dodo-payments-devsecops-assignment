@@ -3,6 +3,7 @@ kind: ServiceAccount
 metadata:
   name: reporting
   namespace: payments
+automountServiceAccountToken: false
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -22,7 +23,27 @@ spec:
         app: reporting
     spec:
       serviceAccountName: reporting
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10002
+        runAsGroup: 10002
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: client
           image: curlimages/curl:8.8.0
           command: ["sleep", "infinity"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "50m"
+              memory: "32Mi"

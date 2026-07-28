@@ -6,8 +6,10 @@ metadata:
     policies.kyverno.io/title: Disallow Root Containers
     policies.kyverno.io/severity: high
     policies.kyverno.io/description: >-
-      Containers must explicitly set runAsNonRoot=true. Pods missing
-      this field entirely are also rejected.
+      Containers must explicitly set runAsNonRoot=true. Scoped to the
+      payments namespace only — platform/infra tooling (ArgoCD, Kyverno
+      itself, ingress-nginx, kube-system) is excluded since this policy
+      governs the PCI-scoped application workload, not the platform.
 spec:
   validationFailureAction: Enforce
   background: true
@@ -18,6 +20,8 @@ spec:
           - resources:
               kinds:
                 - Pod
+              namespaces:
+                - payments
       validate:
         message: "Pod and container securityContext.runAsNonRoot must be explicitly set to true."
         pattern:
@@ -34,6 +38,7 @@ metadata:
     policies.kyverno.io/severity: medium
     policies.kyverno.io/description: >-
       Images must be pinned to a specific tag, not :latest or missing a tag.
+      Scoped to the payments namespace only.
 spec:
   validationFailureAction: Enforce
   background: true
@@ -44,6 +49,8 @@ spec:
           - resources:
               kinds:
                 - Pod
+              namespaces:
+                - payments
       validate:
         message: "Image tag ':latest' or missing tag is not allowed. Use a pinned version or digest."
         foreach:
@@ -64,7 +71,7 @@ metadata:
     policies.kyverno.io/severity: high
     policies.kyverno.io/description: >-
       Images must be signed with Cosign (keyless) and verifiable via Rekor.
-      Applies to ghcr.io images from this repo.
+      Applies to ghcr.io images from this repo, scoped to payments namespace.
 spec:
   validationFailureAction: Enforce
   background: false
@@ -75,6 +82,8 @@ spec:
           - resources:
               kinds:
                 - Pod
+              namespaces:
+                - payments
       verifyImages:
         - imageReferences:
             - "ghcr.io/*/ledger-api*"
