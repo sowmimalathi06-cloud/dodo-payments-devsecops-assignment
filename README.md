@@ -14,7 +14,7 @@ payments microservice handling cardholder-adjacent data — across four domains:
 security, secure CI/CD supply chain, zero-trust service mesh networking, and offensive
 security (reconnaissance + penetration testing).
 
-Everything runs locally and free — a `kind` Kubernetes cluster (v1.30.0) + GitHub Actions
+Everything runs locally and free  a `kind` Kubernetes cluster (v1.30.0) + GitHub Actions
 free-tier runners. No cloud account was used.
 
 ---
